@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, status, HTTPException
+from app.schemas.summary import SummaryUpdateRequest
 from sqlalchemy.ext.asyncio import AsyncSession
 from uuid import UUID
 from datetime import datetime
@@ -49,12 +50,18 @@ async def update_summary(
     summary = await session.get(Summary, summary_id)
     if not summary:
         raise HTTPException(status_code=404, detail="Summary not found")
+    if payload.summary_text is not None:
+        summary.summary_text = payload.summary_text
+
+    if payload.model_used is not None:
+        summary.model_used = payload.model_used
 
     summary.summary_text = payload.summary_text
     summary.updated_at = datetime.utcnow()
 
     await session.commit()
     await session.refresh(summary)
+    
     return summary
 
 

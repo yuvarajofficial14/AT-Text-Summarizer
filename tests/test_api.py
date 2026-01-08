@@ -22,6 +22,14 @@ def test_create_summary(client, monkeypatch):
 
     summary_id = create_resp.json()["id"]
 
+    # Update summary
+    update_resp = client.put(
+        f"/summaries/{summary_id}",
+        json={"summary_text": "Updated summary"}
+    )
+    assert update_resp.status_code == 200
+    assert update_resp.json()["summary_text"] == "Updated summary"
+
     # Get
     get_resp = client.get(f"/summaries/{summary_id}")
     assert get_resp.status_code == 200

@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from uuid import UUID
 from datetime import datetime
+from typing import Optional
 
 class SummaryCreate(BaseModel):
     text: str = Field(min_length=50, max_length=5000)
@@ -18,3 +19,6 @@ class SummaryResponse(BaseModel):
 
     class Config:
         orm_mode = True
+class SummaryUpdateRequest(BaseModel):
+    summary_text: Optional[str] = None
+    model_used: Optional[str] = None
