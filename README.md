@@ -1,10 +1,10 @@
-## Assumptions##
+## Assumptions
 - Authentication and authorization are out of scope.
 - External LLM availability is assumed to be reliable.
 - Input text size is expected to be within reasonable API limits.
 - Concurrency conflicts are not handled explicitly at this scale.
 
-## Design Decisions##
+## Design Decisions
 
 ### Database
 PostgreSQL was chosen for reliable persistence. SQLAlchemy async ORM is used for non-blocking database access.
